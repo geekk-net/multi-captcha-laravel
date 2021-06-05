@@ -1,0 +1,28 @@
+{
+  "name": "geekk/multi-captcha-laravel",
+  "type": "library",
+  "description": "geekk/multi-captcha integration for laravel",
+  "keywords": ["captcha","recaptcha","hcaptcha","kcaptcha", "laravel"],
+  "homepage": "https://github.com/geekk-net/multi-captcha-laravel",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Igor",
+      "email": "igor@geekk.net",
+      "role": "Developer"
+    }
+  ],
+  "require":
+  {
+    "php": ">=7.2",
+    "ext-json": "*",
+    "illuminate/contracts": "^6.0|^7.0|^8.0",
+    "illuminate/support": "^6.0|^7.0|^8.0",
+    "geekk/multi-captcha": "1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Geekk\\MultiCaptcha\\Laravel\\": "src"
+    }
+  }
+}
