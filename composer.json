@@ -24,5 +24,12 @@
     "psr-4": {
       "Geekk\\MultiCaptcha\\Laravel\\": "src"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Geekk\\MultiCaptcha\\Laravel\\CaptchaServiceProvider"
+      ]
+    }
   }
 }
