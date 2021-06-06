@@ -1,6 +1,6 @@
 # multi-captcha-laravel
 
-Laravel's integration for package geekk/multi-captcha-laravel
+Laravel's integration for package geekk/multi-captcha
 
 ## Installation
 
