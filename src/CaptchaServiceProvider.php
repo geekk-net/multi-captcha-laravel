@@ -4,20 +4,22 @@ namespace Geekk\MultiCaptcha\Laravel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
-use Geekk\MultiCaptcha\Laravel\CaptchaManager;
 use Geekk\MultiCaptcha\ReCaptcha2\ReCaptcha2;
 use Geekk\MultiCaptcha\HCaptcha\HCaptcha;
 use Geekk\MultiCaptcha\KCaptcha\KCaptcha;
-use Geekk\MultiCaptcha\Laravel\CaptchaStore;
-use Geekk\MultiCaptcha\Laravel\HCaptchaRequest;
-use Geekk\MultiCaptcha\Laravel\KCaptchaRequest;
-use Geekk\MultiCaptcha\Laravel\ReCaptcha2Request;
 
 /**
  *
  */
 class CaptchaServiceProvider extends ServiceProvider
 {
+
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/captcha.php' => config_path('captcha.php')
+        ], 'config');
+    }
 
     public function register()
     {
