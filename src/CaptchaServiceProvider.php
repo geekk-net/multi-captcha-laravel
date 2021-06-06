@@ -4,6 +4,7 @@ namespace Geekk\MultiCaptcha\Laravel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Geekk\MultiCaptcha\ReCaptcha2\ReCaptcha2;
 use Geekk\MultiCaptcha\HCaptcha\HCaptcha;
 use Geekk\MultiCaptcha\KCaptcha\KCaptcha;
@@ -11,7 +12,7 @@ use Geekk\MultiCaptcha\KCaptcha\KCaptcha;
 /**
  *
  */
-class CaptchaServiceProvider extends ServiceProvider
+class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvider
 {
 
     public function boot()
@@ -65,5 +66,23 @@ class CaptchaServiceProvider extends ServiceProvider
             return KCaptchaRequest::instanceByRequest($app->make(Request::class));
         });
         $this->app->alias(KCaptchaRequest::class, 'multicaptcha.request.kcaptcha');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            CaptchaManager::class,
+            ReCaptcha2::class,
+            HCaptcha::class,
+            KCaptcha::class,
+            ReCaptcha2Request::class,
+            HCaptchaRequest::class,
+            KCaptchaRequest::class
+        ];
     }
 }
