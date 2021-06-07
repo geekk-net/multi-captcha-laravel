@@ -13,7 +13,7 @@ class HCaptchaRequest extends Base
 
     public static function instanceByRequest(Request $request):self
     {
-        return new static($request->post(self::RESPONSE_NAME), $request->ip());
+        return new static(count($request->post()), $request->post(self::RESPONSE_NAME), $request->ip());
     }
 
 }
