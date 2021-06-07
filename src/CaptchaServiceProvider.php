@@ -78,11 +78,17 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
         return [
             CaptchaManager::class,
             ReCaptcha2::class,
+            'multicaptcha.driver.recaptcha2',
             HCaptcha::class,
+            'multicaptcha.driver.hcaptcha',
             KCaptcha::class,
+            'multicaptcha.driver.kcaptcha',
             ReCaptcha2Request::class,
+            'multicaptcha.request.recaptcha2',
             HCaptchaRequest::class,
-            KCaptchaRequest::class
+            'multicaptcha.request.hcaptcha',
+            KCaptchaRequest::class,
+            'multicaptcha.request.kcaptcha'
         ];
     }
 }
