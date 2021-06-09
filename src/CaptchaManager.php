@@ -19,14 +19,19 @@ class CaptchaManager
 
     protected $connectionConfig;
 
-    public function __construct(array $config)
+    public function __construct(array $config, ?string $connection = null)
     {
         $this->config = $config;
+        $this->setConnection($connection);
+    }
+
+    public function setConnection(?string $connection)
+    {
+        $this->connectionName = $connection ?? $this->config['default'];
     }
 
     private function loadDriverConfig()
     {
-        $this->connectionName = $this->config['default'];
         $this->connectionConfig = $this->config['connections'][$this->connectionName];
     }
 

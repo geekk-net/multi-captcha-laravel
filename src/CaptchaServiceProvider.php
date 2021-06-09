@@ -25,7 +25,7 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
     public function register()
     {
         $this->app->singleton(CaptchaManager::class, function ($app) {
-            return new CaptchaManager(config('captcha'), \App::$type);
+            return new CaptchaManager(config('captcha'));
         });
         $this->app->alias(CaptchaManager::class, 'multicaptcha.manager');
         $this->registerDrivers();
