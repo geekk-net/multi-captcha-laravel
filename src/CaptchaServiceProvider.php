@@ -5,9 +5,10 @@ namespace Geekk\MultiCaptcha\Laravel;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Geekk\MultiCaptcha\ReCaptcha2\ReCaptcha2;
 use Geekk\MultiCaptcha\HCaptcha\HCaptcha;
 use Geekk\MultiCaptcha\KCaptcha\KCaptcha;
+use Geekk\MultiCaptcha\ReCaptcha2\ReCaptcha2;
+use Geekk\MultiCaptcha\Turnstile\Turnstile;
 
 /**
  *
@@ -49,6 +50,11 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             return new KCaptcha($params['config'], $store);
         });
         $this->app->alias(KCaptcha::class, 'multicaptcha.driver.kcaptcha');
+
+        $this->app->bind(Turnstile::class, function ($app, $params) {
+            return new Turnstile($params['config']);
+        });
+        $this->app->alias(Turnstile::class, 'multicaptcha.driver.turnstile');
     }
 
     private function registerRequests() {
@@ -66,6 +72,11 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             return KCaptchaRequest::instanceByRequest($app->make(Request::class));
         });
         $this->app->alias(KCaptchaRequest::class, 'multicaptcha.request.kcaptcha');
+
+        $this->app->bind(TurnstileRequest::class, function ($app) {
+            return TurnstileRequest::instanceByRequest($app->make(Request::class));
+        });
+        $this->app->alias(TurnstileRequest::class, 'multicaptcha.request.turnstile');
     }
 
     /**
@@ -83,12 +94,16 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             'multicaptcha.driver.hcaptcha',
             KCaptcha::class,
             'multicaptcha.driver.kcaptcha',
+            Turnstile::class,
+            'multicaptcha.driver.turnstile',
             ReCaptcha2Request::class,
             'multicaptcha.request.recaptcha2',
             HCaptchaRequest::class,
             'multicaptcha.request.hcaptcha',
             KCaptchaRequest::class,
-            'multicaptcha.request.kcaptcha'
+            'multicaptcha.request.kcaptcha',
+            TurnstileRequest::class,
+            'multicaptcha.request.turnstile',
         ];
     }
 }
