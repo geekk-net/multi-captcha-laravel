@@ -20,11 +20,25 @@ Fill driver's specific setting in it:
 
 ```php
 'recaptcha2' => [
-        'driver' => 'recaptcha2',
-        'site_key' => 'your site key for reCaptcha v2',
-        'secret_key' => 'your secret key for reCaptcha v2'
-    ],
+    'driver' => 'recaptcha2',
+    'site_key' => 'your site key for reCaptcha v2',
+    'secret_key' => 'your secret key for reCaptcha v2'
+],
+
+'hcaptcha' => [
+    'driver' => 'hcaptcha',
+    'site_key' => 'your site key for hCaptcha',
+    'secret_key' => 'your secret key for hCaptcha'
+],
+
+'turnstile' => [
+    'driver' => 'turnstile',
+    'site_key' => 'your site key for Cloudflare Turnstile',
+    'secret_key' => 'your secret key for Cloudflare Turnstile'
+],
 ```
+
+Keys are obtained from the [Cloudflare Dashboard](https://dash.cloudflare.com/) → Turnstile.
 
 ## Using
 
