@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Geekk\MultiCaptcha\HCaptcha\HCaptcha;
 use Geekk\MultiCaptcha\KCaptcha\KCaptcha;
+use Geekk\MultiCaptcha\Gregwar\Gregwar;
 use Geekk\MultiCaptcha\ReCaptcha2\ReCaptcha2;
 use Geekk\MultiCaptcha\Turnstile\Turnstile;
 
@@ -51,6 +52,12 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
         });
         $this->app->alias(KCaptcha::class, 'multicaptcha.driver.kcaptcha');
 
+        $this->app->bind(Gregwar::class, function ($app, $params) {
+            $store = new CaptchaStore($app->make('cache')->store());
+            return new Gregwar($params['config'], $store);
+        });
+        $this->app->alias(Gregwar::class, 'multicaptcha.driver.gregwar');
+
         $this->app->bind(Turnstile::class, function ($app, $params) {
             return new Turnstile($params['config']);
         });
@@ -77,6 +84,11 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             return TurnstileRequest::instanceByRequest($app->make(Request::class));
         });
         $this->app->alias(TurnstileRequest::class, 'multicaptcha.request.turnstile');
+
+        $this->app->bind(GregwarRequest::class, function ($app) {
+            return GregwarRequest::instanceByRequest($app->make(Request::class));
+        });
+        $this->app->alias(GregwarRequest::class, 'multicaptcha.request.gregwar');
     }
 
     /**
@@ -94,6 +106,8 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             'multicaptcha.driver.hcaptcha',
             KCaptcha::class,
             'multicaptcha.driver.kcaptcha',
+            Gregwar::class,
+            'multicaptcha.driver.gregwar',
             Turnstile::class,
             'multicaptcha.driver.turnstile',
             ReCaptcha2Request::class,
@@ -102,6 +116,8 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             'multicaptcha.request.hcaptcha',
             KCaptchaRequest::class,
             'multicaptcha.request.kcaptcha',
+            GregwarRequest::class,
+            'multicaptcha.request.gregwar',
             TurnstileRequest::class,
             'multicaptcha.request.turnstile',
         ];

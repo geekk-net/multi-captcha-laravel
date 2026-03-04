@@ -31,6 +31,16 @@ Fill driver's specific setting in it:
     'secret_key' => 'your secret key for hCaptcha'
 ],
 
+'kcaptcha' => [
+    'driver' => 'kcaptcha',
+    'show_credits' => false
+],
+
+'gregwar' => [
+    'driver' => 'gregwar',
+    // optional: width, height, length, quality, allowed_symbols
+],
+
 'turnstile' => [
     'driver' => 'turnstile',
     'site_key' => 'your site key for Cloudflare Turnstile',
@@ -38,7 +48,7 @@ Fill driver's specific setting in it:
 ],
 ```
 
-Keys are obtained from the [Cloudflare Dashboard](https://dash.cloudflare.com/) → Turnstile.
+Keys for Turnstile are obtained from the [Cloudflare Dashboard](https://dash.cloudflare.com/) → Turnstile.
 
 ## Using
 

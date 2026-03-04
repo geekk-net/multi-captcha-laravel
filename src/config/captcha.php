@@ -25,6 +25,17 @@ return [
         'kcaptcha' => [
             'driver' => 'kcaptcha',
             'show_credits' => false
+        ],
+
+        'gregwar' => [
+            'driver' => 'gregwar',
+            // optional: width, height, length, quality, allowed_symbols
+        ],
+
+        'turnstile' => [
+            'driver' => 'turnstile',
+            'site_key' => 'your site key',
+            'secret_key' => 'your secret key'
         ]
 
     ]
